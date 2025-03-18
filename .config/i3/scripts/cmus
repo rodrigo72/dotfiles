@@ -1,0 +1,43 @@
+#!/bin/bash
+
+MAX_LENGTH=60
+
+# check if a click event occurred
+if [ -n "$BLOCK_BUTTON" ]; then
+  case "$BLOCK_BUTTON" in
+    1)  # Left-click: toggle play/pause
+        cmus-remote -u ;;
+    2)  # Middle-click: open cmus interface in a terminal
+        cmus-remote -r ;;
+    3)  # Right-click: stop playback
+        cmus-remote -n ;;
+  esac
+  exit 0
+fi
+
+if ! cmus-remote -Q &>/dev/null; then
+  exit 0
+fi
+
+INFO_CMUS=$(cmus-remote -Q)
+
+INFO_TITLE=$(echo "$INFO_CMUS" | sed -n -e 's/^tag title //p')
+INFO_ALBUM=$(echo "$INFO_CMUS" | sed -n -e 's/^tag album //p')
+INFO_ARTIST=$(echo "$INFO_CMUS" | sed -n -e 's/^tag artist //p')
+
+if [[ -n "$INFO_ARTIST" && -n "$INFO_TITLE" ]]; then
+  OUT_TEXT="${INFO_ARTIST} - ${INFO_TITLE}"
+elif [[ -n "$INFO_TITLE" ]]; then
+  OUT_TEXT="${INFO_TITLE}"
+else
+  OUT_TEXT=""
+fi
+
+if [[ ${#OUT_TEXT} -gt $MAX_LENGTH ]]; then
+  DISPLAY_TEXT="${OUT_TEXT:0:$MAX_LENGTH}..."
+else
+  DISPLAY_TEXT="$OUT_TEXT"
+fi
+
+echo "$DISPLAY_TEXT     <span foreground='#717171'>: :</span>"
+echo "$OUT_TEXT"
