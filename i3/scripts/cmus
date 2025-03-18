@@ -5,11 +5,11 @@ MAX_LENGTH=60
 # check if a click event occurred
 if [ -n "$BLOCK_BUTTON" ]; then
   case "$BLOCK_BUTTON" in
-    1)  # Left-click: toggle play/pause
+    1)
         cmus-remote -u ;;
-    2)  # Middle-click: open cmus interface in a terminal
+    2)
         cmus-remote -r ;;
-    3)  # Right-click: stop playback
+    3)
         cmus-remote -n ;;
   esac
   exit 0
