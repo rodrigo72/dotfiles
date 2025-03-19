@@ -14,3 +14,12 @@ decorations_theme_variant = "Dark"
 import = [
     "~/.config/alacritty/themes/themes/ashes_dark.toml"
 ]
+
+[font]
+
+#normal.family = "Cascadia Code PL"
+#bold.family = "Cascadia Code PL"
+#italic.family = "Cascadia Code PL"
+#bold_italic.family = "Cascadia Code PL"
+
+size = 15.0

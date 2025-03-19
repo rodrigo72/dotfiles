@@ -141,7 +141,7 @@ bindsym $mod+r mode "resize"
 ######################################
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id alacritty
+bindsym $mod+Return exec --no-startup-id ~/.config/alacritty/launch_alacritty.sh
 
 # kill focused window
 bindsym $mod+q kill
@@ -304,25 +304,25 @@ set $ws10 "10"
 # use workspaces on different displays:
 # where you have to replace VGA-0/HDMI-0 with the names for your displays
 # you can get from xrandr command
-#workspace $ws1 output VGA-0
-#workspace $ws2 output VGA-0
-#workspace $ws3 output HDMI-0
-#workspace $ws4 output HDMI-0
-#workspace $ws5 output HDMI-0
+workspace $ws1 output eDP-1
+workspace $ws2 output eDP-1
+workspace $ws3 output eDP-1
+workspace $ws4 output HDMI-1-0
+workspace $ws5 output eDP-1
+workspace $ws6 output eDP-1
+workspace $ws7 output eDP-1
 
 # bind program to workspace and focus to them on startup:
-assign [class="Alacritty"] $ws1
-assign [class="(?i)firefox"] $ws2
-assign [class="Thunar"] $ws3
-assign [class="obsidian"] $ws3
-
+# assign [class="Alacritty"] $ws1
+assign [class="(?i)firefox"] $ws1
+assign [class="Thunar"] $ws4
+assign [class="obsidian"] $ws4
 
 # automatic set focus new window if it opens on another workspace than the current:
-for_window [class=Alacrittyl] focus
-for_window [class=(?i)firefox] focus
-for_window [class=Thunar] focus
-for_window [class=Thunderbird] focus
-for_window [class=TelegramDesktop] focus
+# for_window [class="Alacrittyl"] focus
+for_window [class="(?i)firefox"] focus
+for_window [class="Thunar"] focus
+for_window [class="obsidian"] focus
 
 ##############
 # compositor #
@@ -400,6 +400,13 @@ exec --no-startup-id /usr/bin/dunst
 #exec --no-startup-id sleep 7 && firefox https://github.com/endeavouros-team/endeavouros-i3wm-setup/blob/main/force-knowledge.md
 #exec --no-startup-id sleep 3 && thunar
 
+#exec --no-startup-id sleep 3 && firefox
+#exec --no-startup-id sleep 5 && obsidian
+#exec --no-startup-id sleep 6 && i3-msg workspace 3; alacritty -t cmus -e cmus
+#exec --no-startup-id sleep 7 && i3-msg workspace 4; alacritty
+
+exec --no-startup-id ~/.config/i3/scripts/launch_apps.sh
+
 ###############
 # system tray #
 ###############
@@ -423,6 +430,9 @@ exec --no-startup-id /usr/bin/dunst
 for_window [class="Yad" instance="yad"] floating enable
 for_window [class="Galculator" instance="galculator"] floating enable
 for_window [class="Blueberry.py" instance="blueberry.py"] floating enable
+
+for_window [class="Blueman-manager"] floating enable, resize set 800 600, move position center
+for_window [class="pavucontrol"] floating enable, resize set 800 600, move position center
 
 # set floating (nontiling) for special apps
 for_window [class="Xsane" instance="xsane"] floating enable
@@ -465,7 +475,7 @@ for_window [class="urxvt"] border pixel 1
 # Define colors variables:
 set $darkbluetrans	#08052be6
 set $darkblue		#08052b
-set $lightblue		#406db2
+set $lightblue		#485e7f
 set $urgentred		#824867
 set $white		#fcfcfa
 set $black		#1d1b1d
@@ -492,6 +502,8 @@ bar {
 		font pango: Noto Sans Regular 10
 		status_command i3blocks -c ~/.config/i3/i3blocks.conf
 	    	position bottom
+		output primary
+		# tray_output primary
 #	    	i3bar_command i3bar --transparency
 # it could be that you have no primary display set: set one (xrandr --output <output> --primary)
 # reference: https://i3wm.org/docs/userguide.html#_tray_output
