@@ -307,22 +307,24 @@ set $ws10 "10"
 workspace $ws1 output eDP-1
 workspace $ws2 output eDP-1
 workspace $ws3 output eDP-1
-workspace $ws4 output HDMI-1-0
+workspace $ws4 output eDP-1
 workspace $ws5 output eDP-1
 workspace $ws6 output eDP-1
-workspace $ws7 output eDP-1
+
+exec --no-startup-id python3 ~/.config/i3/scripts/set_workspace_output.py
+
 
 # bind program to workspace and focus to them on startup:
 # assign [class="Alacritty"] $ws1
-assign [class="(?i)firefox"] $ws1
-assign [class="Thunar"] $ws4
-assign [class="obsidian"] $ws4
+# assign [class="(?i)firefox"] $ws1
+# assign [class="Thunar"] $ws4
+# assign [class="obsidian"] $ws4
 
 # automatic set focus new window if it opens on another workspace than the current:
 # for_window [class="Alacrittyl"] focus
-for_window [class="(?i)firefox"] focus
-for_window [class="Thunar"] focus
-for_window [class="obsidian"] focus
+# for_window [class="(?i)firefox"] focus
+# for_window [class="Thunar"] focus
+# for_window [class="obsidian"] focus
 
 ##############
 # compositor #
@@ -405,7 +407,7 @@ exec --no-startup-id /usr/bin/dunst
 #exec --no-startup-id sleep 6 && i3-msg workspace 3; alacritty -t cmus -e cmus
 #exec --no-startup-id sleep 7 && i3-msg workspace 4; alacritty
 
-exec --no-startup-id ~/.config/i3/scripts/launch_apps.sh
+exec --no-startup-id python3 ~/.config/i3/scripts/launch_apps.py
 
 ###############
 # system tray #
